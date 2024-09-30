@@ -1,0 +1,29 @@
+.custom-bg {
+  background-color: #b8b8b8; /* Replace with your desired color */
+}
+
+.needs-validation {
+  max-width: 500px;
+  margin: auto;
+}
+
+.needs-validation .form-group {
+  margin-bottom: 1rem;
+}
+
+.needs-validation .form-control {
+  margin-bottom: 0.5rem;
+}
+
+.needs-validation .invalid-feedback {
+  display: none;
+}
+
+.needs-validation input:invalid ~ .invalid-feedback {
+  display: block;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
