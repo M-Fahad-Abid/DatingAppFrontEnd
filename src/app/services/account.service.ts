@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { User } from '../models/user';
 import { map } from 'rxjs';
+import { Login } from '../models/account/login';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class AccountService {
 
   signal = signal<User | null>(null);
 
-  login(model: User) {
+  login(model: Login) {
     return this.http.post<User>(this.baseUrl + 'Account/login', model).pipe(
       map((user) => {
         if (user) {

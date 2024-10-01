@@ -1,5 +1,6 @@
 export interface User {
   userName: string;
+  password: string;
   dateOfBirth: string;
   knownAs: string;
   created: string;
