@@ -17,7 +17,7 @@
             <div class="card-body">
               <form
                 #loginForm="ngForm"
-                onclick=""
+                (ngSubmit)="login(loginForm)"
                 class="needs-validation"
                 novalidate
               >
@@ -29,6 +29,7 @@
                     class="form-control"
                     id="userName"
                     name="userName"
+                    [(ngModel)]="data.userName"
                     required
                   />
                   <div class="invalid-feedback">
@@ -42,6 +43,8 @@
                     type="password"
                     class="form-control"
                     id="password"
+                    name="password"
+                    [(ngModel)]="data.password"
                     required
                   />
                   <div class="invalid-feedback">Please provide a password.</div>
