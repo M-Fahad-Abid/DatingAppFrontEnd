@@ -1,20 +1,38 @@
-import { Component } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AccountService } from '../../../../_services/account.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, FormsModule],
+  imports: [FormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-  onSubmit(_t14: NgForm) {
-    throw new Error('Method not implemented.');
+  model: any = {};
+
+  private accountService = inject(AccountService);
+  private toastr = inject(ToastrService);
+  private router = inject(Router);
+
+  register() {
+    this.accountService.register(this.model).subscribe({
+      next: (response) => {
+        this.toastr.success('Registered', 'Registration Successful');
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        this.router.navigateByUrl('/');
+      },
+    });
   }
-  onReset() {
-    throw new Error('Method not implemented.');
+  cancel() {
+    console.log('cancel clicked');
+    this.router.navigateByUrl('/');
   }
-  formData: any;
 }

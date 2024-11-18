@@ -1,0 +1,30 @@
+@if (!(accountService.signal())) {
+<div class="container parent">
+  <div class="row title">
+    <h1>Welcome</h1>
+  </div>
+
+  <div class="row description">
+    <p>
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum, veritatis
+      labore temporibus quisquam dolorem velit sunt, architecto doloribus
+      laboriosam aut totam earum aperiam tenetur magnam delectus quibusdam
+      dolores expedita nam ipsa voluptates, reiciendis consequatur laborum
+      dolore. Esse voluptates, minus vitae quaerat quas animi voluptatum facere
+      maxime architecto fugiat dicta. Sit!
+    </p>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="btns">
+        <div class="btn btn-primary" (click)="registerBtn()">Register</div>
+        <div class="btn btn-success" (click)="infoBtn()">Learn More</div>
+      </div>
+    </div>
+  </div>
+</div>
+} @else {
+
+<div>You are logged in</div>
+}

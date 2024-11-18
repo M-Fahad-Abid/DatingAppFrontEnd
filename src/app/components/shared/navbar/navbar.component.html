@@ -1,6 +1,80 @@
-<!-- As a heading -->
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container">
-    <span class="navbar-brand mb-0 h1">Navbar</span>
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active">{{
+      title
+    }}</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      @if (service.signal()) {
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="members" routerLinkActive="active"
+            >Matches</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/list" routerLinkActive="active"
+            >List</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/messages" routerLinkActive="active"
+            >Messages</a
+          >
+        </li>
+      </ul>
+
+      <div class="dropdown">
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Welcome
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+          <li><a class="dropdown-item" (click)="logout()">logout</a></li>
+        </ul>
+      </div>
+      } @if (!service.signal()) {
+      <form
+        #LoginForm="ngForm"
+        class="d-flex"
+        (ngSubmit)="login()"
+        autocomplete="off"
+      >
+        <input
+          class="form-control me-2"
+          type="text"
+          placeholder="username"
+          aria-label="userName"
+          name="username"
+          [(ngModel)]="model.username"
+        />
+        <input
+          class="form-control me-2"
+          type="password"
+          placeholder="password"
+          aria-label="password"
+          name="password"
+          [(ngModel)]="model.password"
+        />
+        <button class="btn btn-outline-success">Login</button>
+      </form>
+      }
+    </div>
   </div>
 </nav>

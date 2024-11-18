@@ -1,0 +1,21 @@
+.parent {
+  display: flex;
+  flex-direction: column;
+}
+
+.title h1 {
+  justify-content: center;
+  display: flex;
+  margin-top: 50px;
+}
+
+.description {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
