@@ -1,0 +1,13 @@
+@if (accountService.signal()) {
+
+<h1>Data from get all users</h1>
+
+@for (val of value; track $index) {
+<ol>
+  <li>{{ val.id }}</li>
+  <li>{{ val.userName }}</li>
+  <li>{{ val.passwordSalt }}</li>
+</ol>
+} } @else {
+<p>N/a</p>
+}

@@ -5,34 +5,33 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-login',
   standalone: true,
   imports: [FormsModule, RouterModule],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css',
 })
-export class RegisterComponent {
+export class LoginComponent {
   model: any = {};
 
   private accountService = inject(AccountService);
   private toastr = inject(ToastrService);
   private router = inject(Router);
 
-  register() {
-    this.accountService.register(this.model).subscribe({
+  login() {
+    console.log(this.model);
+    this.accountService.login(this.model).subscribe({
       next: (response) => {
-        this.toastr.success('Registered', 'Registration Successful');
+        console.log(response);
+
+        this.toastr.success('Login success', 'Yo hoo');
       },
       error: (err) => {
         console.log(err);
       },
       complete: () => {
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/main');
       },
     });
-  }
-  cancel() {
-    console.log('cancel clicked');
-    this.router.navigateByUrl('/');
   }
 }

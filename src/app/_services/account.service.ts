@@ -5,6 +5,7 @@ import { map } from 'rxjs';
 import { Login } from '../models/account/login';
 import { HttpClient } from '@angular/common/http';
 import { Register } from '../models/account/register';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ import { Register } from '../models/account/register';
 export class AccountService {
   private http = inject(HttpClient);
   private baseUrl = environment.urlHttps;
+  private router = inject(Router);
 
   signal = signal<User | null>(null);
 
@@ -27,20 +29,12 @@ export class AccountService {
   }
 
   register(model: Register) {
-    return this.http
-      .post<User>(this.baseUrl + 'account/register-user', model)
-      .pipe(
-        map((user: any) => {
-          if (user) {
-            localStorage.setItem('userCreds', JSON.stringify(user));
-            this.signal.set(user);
-          }
-        })
-      );
+    return this.http.post<User>(this.baseUrl + 'account/register-user', model);
   }
 
   logout() {
     localStorage.removeItem('userCreds');
     this.signal.set(null);
+    this.router.navigateByUrl('/');
   }
 }

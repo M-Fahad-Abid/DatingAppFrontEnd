@@ -19,3 +19,21 @@
   justify-content: center;
   gap: 50px;
 }
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.moving-gradient {
+  background: linear-gradient(270deg, #f2f0f0, #e34646);
+  background-size: 400% 400%; /* Adjust size for smooth movement */
+  animation: gradientAnimation 10s ease infinite; /* Duration and easing */
+}
