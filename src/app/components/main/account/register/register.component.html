@@ -1,68 +1,40 @@
-<section class="moving-gradient min-h-screen flex items-center justify-center">
-  <form action=""></form>
-  <div
-    class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
-  >
-    <div
-      class="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0"
-    >
-      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <h1
-          class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl"
-        >
-          Sign in to your account
-        </h1>
-        <form
-          class="space-y-4 md:space-y-6"
-          #loginForm="ngForm"
-          (ngSubmit)="register()"
-          autocomplete="off"
-        >
-          <div>
-            <label
-              for="username"
-              class="block mb-2 text-sm font-medium text-gray-900"
-              >Your username</label
-            >
-            <input
-              type="username"
-              name="username"
-              id="username"
-              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-              placeholder="Mark, John, etc.."
-              required=""
-              [(ngModel)]="model.username"
-            />
-          </div>
-          <div>
-            <label
-              for="password"
-              class="block mb-2 text-sm font-medium text-gray-900"
-              >Password</label
-            >
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="••••••••"
-              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-              required=""
-              [(ngModel)]="model.password"
-            />
-          </div>
-          
-          <button
-            type="submit"
-            class="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-          >
-            Sign Up
+<div class="container">
+  <div class="row">
+    <div class="form-register">
+      <form
+        #registrationForm="ngForm"
+        (ngSubmit)="register()"
+        autocomplete="off"
+      >
+        <h3>Please Register</h3>
+
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            placeholder="username"
+            [(ngModel)]="model.username"
+          />
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="password"
+            placeholder="password"
+            [(ngModel)]="model.password"
+          />
+        </div>
+
+        <div class="text-center">
+          <button class="btn btn-success me-2" type="submit">Register</button>
+          <button class="btn btn-default" type="button" (click)="cancel()">
+            Cancel
           </button>
-          <p class="text-sm font-dark text-black-500">
-            Already a User
-            <a class="font-medium text-primary-600 hover:underline" routerLink="/login">Login</a>
-          </p>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
-</section>
+</div>

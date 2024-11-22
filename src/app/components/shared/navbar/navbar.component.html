@@ -1,92 +1,80 @@
-<nav class="bg-gray-800 p-3">
-  @if (service.signal()) {
-  <div class="container mx-auto px-4 py-2 flex justify-between items-center">
-    <a
-      class="text-white font-bold text-xl link-underline-danger"
-      routerLink="/main"
-      >{{ title }}</a
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active">{{
+      title
+    }}</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
     >
-    <div class="hidden md:flex items-center space-x-4">
-      <a
-        class="text-gray-300 hover:text-white no-underline"
-        routerLink="/matches"
-        routerLinkActive="text-white font-bold  border-white"
-        >Matches</a
-      >
-      <a
-        class="text-gray-300 hover:text-white no-underline"
-        routerLink="/messages"
-        routerLinkActive="text-white font-bold  border-white"
-        >Messages</a
-      >
-      <a
-        class="text-gray-300 hover:text-white no-underline"
-        routerLink="/users"
-        routerLinkActive="text-white font-bold  border-white"
-        >List</a
-      >
-    </div>
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="relative inline-block text-left">
-      <div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      @if (service.signal()) {
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="members" routerLinkActive="active"
+            >Matches</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/list" routerLinkActive="active"
+            >List</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/messages" routerLinkActive="active"
+            >Messages</a
+          >
+        </li>
+      </ul>
+
+      <div class="dropdown">
         <button
+          class="btn btn-secondary dropdown-toggle"
           type="button"
-          class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-          (click)="toggleMenu()"
-          [attr.aria-expanded]="isMenuOpen.toString()"
-          aria-haspopup="true"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
         >
-          Options
-          <svg
-            class="-mr-1 size-5 text-gray-400"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-              clip-rule="evenodd"
-            />
-          </svg>
+          Welcome
         </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+          <li><a class="dropdown-item" (click)="logout()">logout</a></li>
+        </ul>
       </div>
-
-      <div
-        class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5"
-        *ngIf="isMenuOpen"
-        role="menu"
-        aria-orientation="vertical"
-        aria-labelledby="menu-button"
-        tabindex="-1"
+      } @if (!service.signal()) {
+      <form
+        #LoginForm="ngForm"
+        class="d-flex"
+        (ngSubmit)="login()"
+        autocomplete="off"
       >
-        <div class="py-1" role="none">
-          <a
-            href="#"
-            class="block px-4 py-2 text-sm text-gray-700"
-            role="menuitem"
-            tabindex="-1"
-          >
-            Account settings
-          </a>
-          <button
-            type="button"
-            class="block w-full px-4 py-2 text-left text-sm text-gray-700"
-            role="menuitem"
-            tabindex="-1"
-            (click)="signOut()"
-          >
-            Sign out
-          </button>
-        </div>
-      </div>
+        <input
+          class="form-control me-2"
+          type="text"
+          placeholder="username"
+          aria-label="userName"
+          name="username"
+          [(ngModel)]="model.username"
+        />
+        <input
+          class="form-control me-2"
+          type="password"
+          placeholder="password"
+          aria-label="password"
+          name="password"
+          [(ngModel)]="model.password"
+        />
+        <button class="btn btn-outline-success">Login</button>
+      </form>
+      }
     </div>
   </div>
-  }@else{
-  <div
-    class="text-center text-white hover:text-xl transition-all duration-300 ease-in-out"
-  >
-    DateApp
-  </div>
-  }
 </nav>

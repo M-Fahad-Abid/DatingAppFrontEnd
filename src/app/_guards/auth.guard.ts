@@ -14,7 +14,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     return true;
   } else {
     toast.error('You need to log in to access this page.');
-    router.navigate(['/login']);
+    router.navigate(['/']);
     return false;
   }
 };

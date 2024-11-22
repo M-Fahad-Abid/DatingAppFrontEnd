@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, HostListener, inject, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../../../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -22,8 +21,6 @@ export class NavbarComponent {
   public service = inject(AccountService);
   private toastr = inject(ToastrService);
 
-  constructor(private elementRef: ElementRef) {}
-
   login() {
     this.service.login(this.model).subscribe({
       next: (response) => {
@@ -34,21 +31,7 @@ export class NavbarComponent {
     });
   }
 
-  isMenuOpen = false;
-
-  toggleMenu(): void {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
-
-  @HostListener('document:click', ['$event'])
-  onClick(event: Event): void {
-    const clickedInside = this.elementRef.nativeElement.contains(event.target);
-    if (!clickedInside) {
-      this.isMenuOpen = false;
-    }
-  }
-
-  signOut() {
+  logout() {
     this.service.logout();
   }
 }

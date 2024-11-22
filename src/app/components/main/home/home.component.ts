@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 
 import { AccountService } from '../../../_services/account.service';
-import { Router, RouterLink } from '@angular/router';
-import { MainComponent } from '../screens/main/main.component';
+import { Router } from '@angular/router';
+import { MainComponent } from "../screens/main/main.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, MainComponent],
+  imports: [MainComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
