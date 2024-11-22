@@ -36,6 +36,7 @@ export const routes: Routes = [
     children: [{ path: 'user-register', component: RegisterComponent }],
   },
 
+  { path: 'not-found', component: NotFoundComponent },
   { path: 'unavailable', component: AccessDeniedComponent },
   { path: '**', component: NotFoundComponent, pathMatch: 'full' },
 ];
