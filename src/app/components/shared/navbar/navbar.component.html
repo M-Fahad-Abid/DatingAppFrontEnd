@@ -1,30 +1,17 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
   <div class="container">
-    <a class="navbar-brand" routerLink="/" routerLinkActive="active">{{
-      title
-    }}</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand" routerLink="/">{{ title }}</a>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarColor01">
       @if (service.signal()) {
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="members" routerLinkActive="active"
+          <a class="nav-link" routerLink="/matches" routerLinkActive="active"
             >Matches</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/list" routerLinkActive="active"
+          <a class="nav-link" routerLink="/user" routerLinkActive="active"
             >List</a
           >
         </li>
@@ -35,44 +22,47 @@
         </li>
       </ul>
 
-      <div class="dropdown">
+      <div class="btn-group">
         <button
-          class="btn btn-secondary dropdown-toggle"
           type="button"
+          class="btn btn-secondary dropdown-toggle"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
           Welcome
         </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Edit Profile</a></li>
-          <li><a class="dropdown-item" (click)="logout()">logout</a></li>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li>
+            <button class="dropdown-item" routerLink="/user/:id">Settings</button></li>
+          <li>
+            <button class="dropdown-item" type="button" (click)="logout()">
+              Logout
+            </button>
+          </li>
         </ul>
       </div>
+
       } @if (!service.signal()) {
-      <form
-        #LoginForm="ngForm"
-        class="d-flex"
-        (ngSubmit)="login()"
-        autocomplete="off"
-      >
+      <form #loginForm="ngForm" class="d-flex" (ngSubmit)="login()">
         <input
-          class="form-control me-2"
-          type="text"
-          placeholder="username"
-          aria-label="userName"
+          class="form-control me-sm-2"
+          type="userName"
+          placeholder="User Name"
           name="username"
           [(ngModel)]="model.username"
         />
+
         <input
-          class="form-control me-2"
+          class="form-control me-sm-2"
           type="password"
           placeholder="password"
-          aria-label="password"
           name="password"
           [(ngModel)]="model.password"
         />
-        <button class="btn btn-outline-success">Login</button>
+
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+          Login
+        </button>
       </form>
       }
     </div>

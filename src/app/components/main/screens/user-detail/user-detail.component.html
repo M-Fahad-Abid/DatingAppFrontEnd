@@ -1,1 +1,88 @@
-<p>user-detail works!</p>
+<section>
+  @if (member) {
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card">
+          <img
+            src="{{ member.photosUrl || './assets/user.png' }}"
+            alt="{{ member.knownAS }}"
+            class="card-img img-thumbnail"
+          />
+
+          <div class="card-body">
+            <div>
+              <strong>Location:</strong>
+              <p>{{ member.city }}, {{ member.country }}</p>
+            </div>
+
+            <div>
+              <strong>Age:</strong>
+              <p>{{ member.age }}</p>
+            </div>
+
+            <div>
+              <strong>Last Active:</strong>
+              <p>{{ member.lastActive }}</p>
+            </div>
+
+            <div>
+              <strong>Member Since:</strong>
+              <p>{{ member.created }}</p>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="btn-group d-flex">
+              <button class="btn btn-primary">Like</button>
+              <button class="btn btn-Success">Messages</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <tabset class="member-tabset">
+          <!-- First Tab -->
+          <tab heading="About {{ member.knownAS }}">
+            <div class="tabs-data mt-5 mx-5">
+              <h4>Description</h4>
+              <p>{{ member.introduction }}</p>
+
+              <h4>looking For</h4>
+              <p>{{ member.lookingFor }}</p>
+            </div>
+          </tab>
+
+          <!-- Second Tab -->
+          <tab heading="Interest">
+            <div class="tabs-data mt-5 mx-5">
+              <h4>Interest</h4>
+              <p>{{ member.interests }}</p>
+            </div>
+          </tab>
+
+          <!-- Third Tab -->
+          <tab heading="Photo's" #photoTab="tab">
+            <div class="tabs-data mt-5 mx-5">
+              @if (photoTab.active) {
+              <gallery
+                [items]="images"
+                thumbPosition="left"
+                class="gallery"
+              ></gallery>
+              }
+            </div>
+          </tab>
+
+          <!-- Fourth Tab -->
+          <tab heading="Messages">
+            <div class="tabs-data mt-5 mx-5">
+              <h4>Messages</h4>
+              <!-- <p>{{ member.interests }}</p> -->
+            </div>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+  }
+</section>

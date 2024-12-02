@@ -2,12 +2,14 @@ import { Component, inject } from '@angular/core';
 
 import { AccountService } from '../../../_services/account.service';
 import { Router } from '@angular/router';
-import { MainComponent } from "../screens/main/main.component";
+import { UsersComponent } from "../screens/users/users.component";
+
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MainComponent],
+  imports: [UsersComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

@@ -3,11 +3,12 @@ import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../../../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -22,6 +23,8 @@ export class NavbarComponent {
   private toastr = inject(ToastrService);
 
   login() {
+    console.log(this.model);
+
     this.service.login(this.model).subscribe({
       next: (response) => {
         this.responseMessage = response;
