@@ -11,6 +11,8 @@ import { MatchesComponent } from './components/main/screens/matches/matches.comp
 import { UserDetailComponent } from './components/main/screens/user-detail/user-detail.component';
 import { UsersComponent } from './components/main/screens/users/users.component';
 import { HomeComponent } from './components/main/home/home.component';
+import { EditUserComponent } from './components/main/screens/edit-user/edit-user.component';
+import { preventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +24,11 @@ export const routes: Routes = [
     runGuardsAndResolvers: 'always',
     children: [
       { path: 'user', component: UsersComponent },
+      {
+        path: 'user/edit',
+        component: EditUserComponent,
+        canDeactivate: [preventUnsavedChangesGuard],
+      },
       { path: 'user/:username', component: UserDetailComponent },
       { path: 'messages', component: MessagesComponent },
       { path: 'matches', component: MatchesComponent },

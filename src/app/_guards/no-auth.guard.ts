@@ -8,7 +8,7 @@ export const noAuthGuard: CanActivateFn = (route, state) => {
 
   const isAuthenticated = accountService.signal();
   if (isAuthenticated) {
-    router.navigateByUrl('/main');
+    router.navigateByUrl('/user');
     return false;
   }
   return true;
