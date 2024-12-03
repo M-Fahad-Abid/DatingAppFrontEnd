@@ -11,21 +11,14 @@ import { CardComponent } from '../../../other/card/card.component';
   styleUrl: './users.component.css',
 })
 export class UsersComponent implements OnInit {
-  private memberService = inject(MembersService);
-  data: Member[] = [];
+  public memberService = inject(MembersService);
+  // data: Member[] = [];
 
   ngOnInit(): void {
-    this.getUsers();
+    if (this.memberService.users().length === 0) this.getUsers();
   }
 
   getUsers() {
-    this.memberService.getAllUsers().subscribe({
-      next: (response) => {
-        this.data = response;
-      },
-      error: (err) => {
-        console.log('error: ', err);
-      },
-    });
+    this.memberService.getAllUsers();
   }
 }

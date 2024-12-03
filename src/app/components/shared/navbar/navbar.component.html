@@ -29,11 +29,14 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Welcome
+          {{this.service.signal()?.userName}}
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
           <li>
-            <button class="dropdown-item" routerLink="/user/:id">Settings</button></li>
+            <button class="dropdown-item" routerLink="user/edit">
+              Settings
+            </button>
+          </li>
           <li>
             <button class="dropdown-item" type="button" (click)="logout()">
               Logout
