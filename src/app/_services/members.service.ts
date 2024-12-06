@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment.development';
 import { Member } from '../models/member';
 import { AccountService } from './account.service';
 import { of, tap } from 'rxjs';
+import { Photo } from '../models/photo';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class MembersService {
   private accountService = inject(AccountService);
   private http = inject(HttpClient);
   baseUrl = environment.urlHttps;
+
   users = signal<Member[]>([]);
 
   getAllUsers() {
@@ -42,6 +44,23 @@ export class MembersService {
         );
       })
     );
+  }
+
+  setMainPhoto(photo: Photo) {
+    return this.http
+      .put(this.baseUrl + 'user/set-main-photo/' + photo.id, {})
+      .pipe(
+        tap(() => {
+          this.users.update((value) =>
+            value.map((m) => {
+              if (m.photos.includes(photo)) {
+                m.photosUrl = photo.url;
+              }
+              return m;
+            })
+          );
+        })
+      );
   }
 
   // bearerToken() {

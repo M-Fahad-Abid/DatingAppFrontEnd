@@ -107,8 +107,8 @@
           <!-- Second Tab -->
           <tab heading="Edit Photos">
             <div class="tabs-data mt-5 mx-5">
-              <h4>Edit Your Photos</h4>
-              <p>{{ user.interests }}</p>
+              <h4 class="mb-5">Edit Your Photos</h4>
+              <app-photo-editor [members]="user" (memberChange)="onMemberChange($event)"></app-photo-editor>
             </div>
           </tab>
         </tabset>

@@ -11,11 +11,12 @@ import { MembersService } from '../../../../_services/members.service';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { PhotoEditorComponent } from '../../photo-editor/photo-editor.component';
 
 @Component({
   selector: 'app-edit-user',
   standalone: true,
-  imports: [TabsModule, FormsModule],
+  imports: [TabsModule, FormsModule, PhotoEditorComponent],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css',
 })
@@ -36,6 +37,8 @@ export class EditUserComponent implements OnInit {
   private toastr = inject(ToastrService);
 
   ngOnInit(): void {
+    console.log("loading of parent edit component", );
+    
     this.loadUserDetails();
   }
 
@@ -61,5 +64,9 @@ export class EditUserComponent implements OnInit {
       },
       error: (err) => console.log(err),
     });
+  }
+
+  onMemberChange(event: Member) {
+    this.user = event;
   }
 }
