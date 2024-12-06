@@ -63,6 +63,23 @@ export class MembersService {
       );
   }
 
+  deletePhoto(photo: Photo) {
+    return this.http
+      .delete(this.baseUrl + 'user/delete-photo/' + photo.id)
+      .pipe(
+        tap(() => {
+          this.users.update((value) =>
+            value.map((m) => {
+              if (m.photos.includes(photo)) {
+                m.photos = m.photos.filter((x) => x.id !== photo.id);
+              }
+              return m;
+            })
+          );
+        })
+      );
+  }
+
   // bearerToken() {
   //   return {
   //     headers: new HttpHeaders({
