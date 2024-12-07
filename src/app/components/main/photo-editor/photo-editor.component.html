@@ -3,33 +3,33 @@
     <div class="row">
       @for (photo of members().photos; track photo.id) {
 
-      <div class="col-2">
-        <img
-          src="{{ photo.url }}"
-          alt="User Photo"
-          class="img-thumbnail mb-1"
-        />
+        <div class="col-2">
+          <img
+            src="{{ photo.url }}"
+            alt="User Photo"
+            class="img-thumbnail mb-1"
+          />
 
-        <div class="text-center">
-          <button
-            class="btn btn-sm me-1"
-            [disabled]="photo.isMain"
-            (click)="setMainPhoto(photo)"
-            [ngClass]="
+          <div class="text-center">
+            <button
+              class="btn btn-sm me-1"
+              [disabled]="photo.isMain"
+              (click)="setMainPhoto(photo)"
+              [ngClass]="
               photo.isMain ? 'btn-success active' : ' btn-outline-success'
             "
-          >
-            Main
-          </button>
-          <button
-            class="btn btn-sm btn-danger"
-            [disabled]="photo.isMain"
-            (click)="deletePhoto(photo)"
-          >
-            <i class="bi bi-trash-fill"></i>
-          </button>
+            >
+              Main
+            </button>
+            <button
+              class="btn btn-sm btn-danger"
+              [disabled]="photo.isMain"
+              (click)="deletePhoto(photo)"
+            >
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </div>
         </div>
-      </div>
       }
     </div>
 
@@ -59,20 +59,20 @@
 
         <table class="table">
           <thead>
-            <tr>
-              <th width="50%">Name</th>
-              <th>Size</th>
-            </tr>
+          <tr>
+            <th width="50%">Name</th>
+            <th>Size</th>
+          </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of uploader?.queue">
-              <td>
-                <strong>{{ item?.file?.name }}</strong>
-              </td>
-              <td *ngIf="uploader?.options?.isHTML5" nowrap>
-                {{ item?.file?.size / 1024 / 1024 | number : ".2" }} MB
-              </td>
-            </tr>
+          <tr *ngFor="let item of uploader?.queue">
+            <td>
+              <strong>{{ item?.file?.name }}</strong>
+            </td>
+            <td *ngIf="uploader?.options?.isHTML5" nowrap>
+              {{ item?.file?.size / 1024 / 1024 | number : ".2" }} MB
+            </td>
+          </tr>
           </tbody>
         </table>
 
@@ -109,6 +109,8 @@
             (click)="uploader?.clearQueue()"
             [disabled]="!uploader?.queue?.length"
           >
+
+
             <span class="glyphicon glyphicon-trash"></span> Remove all
           </button>
         </div>

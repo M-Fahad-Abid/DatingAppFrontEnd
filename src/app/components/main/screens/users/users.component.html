@@ -1,36 +1,11 @@
 <div class="container">
   <div class="row">
     @for (user of memberService.users(); track user.id) {
-    <div class="col-lg-2 col-md-3 col-sm-6 mt-4 mx-auto">
-      <app-card [userData]="user"></app-card>
-    </div>
+      <div class="col-lg-2 col-md-3 col-sm-6 mt-4 mx-auto">
+        <app-card [userData]="user"></app-card>
+      </div>
     }
   </div>
 
-  <!-- <div class="row text-white">
-    <div class="col-2 bg-dark">.</div>
-    <div class="col-2 bg-dark">.</div>
-    <div class="col-2 bg-dark">.</div>
-    <div class="col-2 bg-dark">.</div>
-    <div class="col-2 bg-dark">.</div>
-    <div class="col-2 bg-dark">.</div>
-    <div class="col-2 bg-dark">.</div>
-    <div class="col bg-dark">.</div>
-    <div class="col bg-dark">.</div>
-    <div class="col bg-dark">.</div>
-    <div class="col bg-dark">.</div>
-    <div class="col bg-dark">.</div>
-    <div class="col bg-dark">.</div>
-    <div class="col bg-dark">.</div>
-    <div class="col bg-dark">.</div>
-    <div class="col bg-dark">.</div>
-    <div class="col bg-dark">.</div>
-    <div class="col bg-dark">.</div>
-    <div class="col bg-dark">.</div>
-    <div class="col bg-dark">1</div>
-    <div class="col bg-dark">2</div>
-    <div class="col bg-dark">3</div>
-    <div class="col bg-dark">4</div>
-    <div class="col bg-dark">5</div>
-  </div> -->
+
 </div>
