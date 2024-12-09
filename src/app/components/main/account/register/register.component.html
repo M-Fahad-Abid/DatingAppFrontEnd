@@ -2,33 +2,29 @@
   <div class="row">
     <div class="col-lg-4 col-md-6 col-sm-12 text-center mt-5 mx-auto">
       <div class="form-register mt-5">
-
         <form
-          #registrationForm="ngForm"
+          [formGroup]="registerForm"
           (ngSubmit)="register()"
           autocomplete="off"
         >
           <h3 class="mb-5 font-monospace">Please Register</h3>
 
-          <div class="mb-3">
-            <input
-              type="text"
-              class="form-control"
-              name="username"
-              placeholder="username"
-              [(ngModel)]="model.username"
-            />
-          </div>
+          <app-text-input
+            [formControl]="$any(registerForm.controls['userName'])"
+            [label]="'User Name'"
+          ></app-text-input>
 
-          <div class="mb-3">
-            <input
-              type="text"
-              class="form-control"
-              name="password"
-              placeholder="password"
-              [(ngModel)]="model.password"
-            />
-          </div>
+          <app-text-input
+            [formControl]="$any(registerForm.controls['password'])"
+            [label]="'password'"
+            [type]="'password'"
+          ></app-text-input>
+
+          <app-text-input
+            [formControl]="$any(registerForm.controls['confirmPassword'])"
+            [label]="'Confirm Password'"
+            [type]="'password'"
+          ></app-text-input>
 
           <div class="text-center">
             <button class="btn btn-success me-2" type="submit">Register</button>
@@ -39,7 +35,12 @@
         </form>
       </div>
     </div>
+  </div>
 
-
+  <div class="row">
+    <div class="col-12 mt-5 text-center">
+      <p class="">Form Data {{ registerForm.value | json }}</p>
+      <p class="">Form Data {{ registerForm.status | json }}</p>
+    </div>
   </div>
 </div>
