@@ -12,11 +12,18 @@ import { AccountService } from '../../../../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule, JsonPipe } from '@angular/common';
+import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, JsonPipe, CommonModule],
+  imports: [
+    ReactiveFormsModule,
+    RouterModule,
+    JsonPipe,
+    CommonModule,
+    TextInputComponent,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
