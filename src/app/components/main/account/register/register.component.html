@@ -1,40 +1,45 @@
 <div class="container">
   <div class="row">
-    <div class="form-register">
-      <form
-        #registrationForm="ngForm"
-        (ngSubmit)="register()"
-        autocomplete="off"
-      >
-        <h3>Please Register</h3>
+    <div class="col-lg-4 col-md-6 col-sm-12 text-center mt-5 mx-auto">
+      <div class="form-register mt-5">
 
-        <div class="mb-3">
-          <input
-            type="text"
-            class="form-control"
-            name="username"
-            placeholder="username"
-            [(ngModel)]="model.username"
-          />
-        </div>
+        <form
+          #registrationForm="ngForm"
+          (ngSubmit)="register()"
+          autocomplete="off"
+        >
+          <h3 class="mb-5 font-monospace">Please Register</h3>
 
-        <div class="mb-3">
-          <input
-            type="text"
-            class="form-control"
-            name="password"
-            placeholder="password"
-            [(ngModel)]="model.password"
-          />
-        </div>
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              name="username"
+              placeholder="username"
+              [(ngModel)]="model.username"
+            />
+          </div>
 
-        <div class="text-center">
-          <button class="btn btn-success me-2" type="submit">Register</button>
-          <button class="btn btn-default" type="button" (click)="cancel()">
-            Cancel
-          </button>
-        </div>
-      </form>
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              name="password"
+              placeholder="password"
+              [(ngModel)]="model.password"
+            />
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-success me-2" type="submit">Register</button>
+            <button class="btn btn-default" type="button" (click)="cancel()">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
+
+
   </div>
 </div>
