@@ -11,12 +11,12 @@ import {
 import { AccountService } from '../../../../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterModule } from '@angular/router';
-import { JsonPipe } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, JsonPipe],
+  imports: [ReactiveFormsModule, RouterModule, JsonPipe, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -35,8 +35,12 @@ export class RegisterComponent implements OnInit {
   //method for reactive form
   reactiveForm() {
     this.registerForm = new FormGroup({
-      userName: new FormControl('Jake etc ....', Validators.required),
-      password: new FormControl('', [Validators.required, Validators.min(8)]),
+      userName: new FormControl('', Validators.required),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(8),
+      ]),
       confirmPassword: new FormControl('', [
         Validators.required,
         this.matchValue('password'),
