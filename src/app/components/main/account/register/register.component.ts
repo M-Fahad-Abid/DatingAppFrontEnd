@@ -50,6 +50,11 @@ export class RegisterComponent implements OnInit {
         [Validators.required, Validators.minLength(4), Validators.maxLength(8)],
       ],
       confirmPassword: ['', [Validators.required, this.matchValue('password')]],
+      dateOfBirth: ['', Validators.required],
+      gender: ['male'],
+      knownAs: ['', Validators.required],
+      city: ['', Validators.required],
+      country: ['', Validators.required],
     });
     this.registerForm.controls['password'].valueChanges.subscribe({
       next: () =>
