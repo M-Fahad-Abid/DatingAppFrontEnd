@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
+  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -13,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
+import { DatePickerComponent } from '../../../shared/date-picker/date-picker.component';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +25,7 @@ import { TextInputComponent } from '../../../shared/forms/text-input/text-input.
     JsonPipe,
     CommonModule,
     TextInputComponent,
+    DatePickerComponent,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -30,28 +33,32 @@ import { TextInputComponent } from '../../../shared/forms/text-input/text-input.
 export class RegisterComponent implements OnInit {
   model: any = {};
   registerForm: FormGroup = new FormGroup({});
+  maxDate = new Date();
 
   private accountService = inject(AccountService);
   private toastr = inject(ToastrService);
   private router = inject(Router);
+  private formBuilder = inject(FormBuilder);
 
   ngOnInit(): void {
     this.reactiveForm();
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
   }
 
   //method for reactive form
   reactiveForm() {
-    this.registerForm = new FormGroup({
-      userName: new FormControl('', Validators.required),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(8),
-      ]),
-      confirmPassword: new FormControl('', [
-        Validators.required,
-        this.matchValue('password'),
-      ]),
+    this.registerForm = this.formBuilder.group({
+      userName: ['', Validators.required],
+      password: [
+        '',
+        [Validators.required, Validators.minLength(4), Validators.maxLength(8)],
+      ],
+      confirmPassword: ['', [Validators.required, this.matchValue('password')]],
+      dateOfBirth: ['', Validators.required],
+      gender: ['male'],
+      knownAs: ['', Validators.required],
+      city: ['', Validators.required],
+      country: ['', Validators.required],
     });
     this.registerForm.controls['password'].valueChanges.subscribe({
       next: () =>
