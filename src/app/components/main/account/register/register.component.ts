@@ -34,6 +34,7 @@ export class RegisterComponent implements OnInit {
   model: any = {};
   registerForm: FormGroup = new FormGroup({});
   maxDate = new Date();
+  validationErrors: [string] | undefined;
 
   private accountService = inject(AccountService);
   private toastr = inject(ToastrService);
@@ -81,32 +82,28 @@ export class RegisterComponent implements OnInit {
     };
   }
 
-  //tutorial one
-  // matchValue(data: any): ValidatorFn {
-  //   return (control: AbstractControl) => {
-  //     return control.value === control.parent?.get(data)?.value
-  //       ? null
-  //       : { isMatch: true };
-  //   };
-  // }
-
   register() {
-    console.log(this.registerForm.value);
-    // this.accountService.register(this.model).subscribe({
-    //   next: (response) => {
-    //     this.toastr.success('Registered', 'Registration Successful');
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //   },
-    //   complete: () => {
-    //     this.router.navigateByUrl('/');
-    //   },
-    // });
+    const dob = this.getDateOnly(this.registerForm.get('dateOfBirth')?.value);
+    this.registerForm.patchValue({ dateOfBirth: dob });
+
+    this.accountService.register(this.registerForm.value).subscribe({
+      next: (response) => {
+        this.toastr.success('Registered', 'Registration Successful');
+        this.router.navigateByUrl('/user');
+      },
+      error: (err) => {
+        this.validationErrors = err;
+      },
+    });
   }
 
   cancel() {
     console.log('cancel clicked');
     this.router.navigateByUrl('/');
+  }
+
+  private getDateOnly(dob: any) {
+    if (!dob) return null;
+    return new Date(dob).toISOString().slice(0, 10);
   }
 }
