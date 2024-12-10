@@ -22,11 +22,10 @@ import { DatePickerComponent } from '../../../shared/date-picker/date-picker.com
   imports: [
     ReactiveFormsModule,
     RouterModule,
-    JsonPipe,
     CommonModule,
     TextInputComponent,
-    DatePickerComponent,
-  ],
+    DatePickerComponent
+],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
