@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
+import { DatePickerComponent } from '../../../shared/date-picker/date-picker.component';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +25,7 @@ import { TextInputComponent } from '../../../shared/forms/text-input/text-input.
     JsonPipe,
     CommonModule,
     TextInputComponent,
+    DatePickerComponent,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -31,6 +33,7 @@ import { TextInputComponent } from '../../../shared/forms/text-input/text-input.
 export class RegisterComponent implements OnInit {
   model: any = {};
   registerForm: FormGroup = new FormGroup({});
+  maxDate = new Date();
 
   private accountService = inject(AccountService);
   private toastr = inject(ToastrService);
@@ -39,6 +42,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.reactiveForm();
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
   }
 
   //method for reactive form

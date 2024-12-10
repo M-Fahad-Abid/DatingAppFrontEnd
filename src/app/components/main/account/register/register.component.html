@@ -27,11 +27,11 @@
           ></app-text-input>
 
           <!--dob-->
-          <app-text-input
+          <app-date-picker
             [formControl]="$any(registerForm.controls['dateOfBirth'])"
             [label]="'Date Of Birth'"
-            [type]="'text'"
-          ></app-text-input>
+            [maxDate]="maxDate"
+          ></app-date-picker>
           <!--end-->
 
           <!--gender-->
