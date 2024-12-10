@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
+  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -34,6 +35,7 @@ export class RegisterComponent implements OnInit {
   private accountService = inject(AccountService);
   private toastr = inject(ToastrService);
   private router = inject(Router);
+  private formBuilder = inject(FormBuilder);
 
   ngOnInit(): void {
     this.reactiveForm();
@@ -41,17 +43,13 @@ export class RegisterComponent implements OnInit {
 
   //method for reactive form
   reactiveForm() {
-    this.registerForm = new FormGroup({
-      userName: new FormControl('', Validators.required),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(8),
-      ]),
-      confirmPassword: new FormControl('', [
-        Validators.required,
-        this.matchValue('password'),
-      ]),
+    this.registerForm = this.formBuilder.group({
+      userName: ['', Validators.required],
+      password: [
+        '',
+        [Validators.required, Validators.minLength(4), Validators.maxLength(8)],
+      ],
+      confirmPassword: ['', [Validators.required, this.matchValue('password')]],
     });
     this.registerForm.controls['password'].valueChanges.subscribe({
       next: () =>
