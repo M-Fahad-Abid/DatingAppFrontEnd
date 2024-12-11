@@ -28,15 +28,15 @@ export class AccountService {
   }
 
   register(model: Register) {
-    return this.http.post<User>(this.baseUrl + 'account/register-user', model).pipe(
-      map((user: any) => {
-        if (user) {
-          this.setCurrentUser(user);
-        }
-      })
-    );
-
-
+    return this.http
+      .post<User>(this.baseUrl + 'account/register-user', model)
+      .pipe(
+        map((user: any) => {
+          if (user) {
+            this.setCurrentUser(user);
+          }
+        })
+      );
   }
 
   setCurrentUser(user: User) {
