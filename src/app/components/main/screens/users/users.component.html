@@ -1,9 +1,30 @@
 <div class="container">
   <div class="row">
     @for (user of memberService.paginatedResult()?.items; track user.id) {
-      <div class="col-lg-2 col-md-3 col-sm-6 mt-4 mx-auto">
-        <app-card [userData]="user"></app-card>
-      </div>
+    <div class="col-lg-2 col-md-3 col-sm-6 mt-4 mx-auto">
+      <app-card [userData]="user"></app-card>
+    </div>
     }
   </div>
+
+  @if (memberService.paginatedResult()?.pagination) {
+  <div class="row">
+    <div
+      class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center my-5"
+    >
+      <pagination
+        [boundaryLinks]="true"
+        [totalItems]="(memberService.paginatedResult()?.pagination)!.totalItems"
+        [itemsPerPage]="memberService.paginatedResult()?.pagination!.itemsPerPage"
+        (pageChanged)="pageChanged($event)"
+        [maxSize]="10"
+        previousText="&lsaquo;"
+        nextText="&rsaquo;"
+        firstText="&laquo;"
+        lastText="&raquo;"
+      >
+      </pagination>
+    </div>
+  </div>
+  }
 </div>

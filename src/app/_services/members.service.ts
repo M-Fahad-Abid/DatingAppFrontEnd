@@ -27,9 +27,10 @@ export class MembersService {
     }
 
     return this.http
-      .get<
-        Member[]
-      >(this.baseUrl + 'user/get-all-users', { observe: 'response', params })
+      .get<Member[]>(this.baseUrl + 'user/get-all-users', {
+        observe: 'response',
+        params,
+      })
       .subscribe({
         next: (response) =>
           this.paginatedResult.set({
@@ -47,7 +48,7 @@ export class MembersService {
     // }
 
     return this.http.get<Member>(
-      this.baseUrl + 'user/get-user-name/' + userName,
+      this.baseUrl + 'user/get-user-name/' + userName
     );
   }
 
