@@ -13,12 +13,14 @@ import { CardComponent } from '../../../other/card/card.component';
 export class UsersComponent implements OnInit {
   public memberService = inject(MembersService);
   // data: Member[] = [];
+  pageNumber = 1;
+  pageSize = 5;
 
   ngOnInit(): void {
-    if (this.memberService.users().length === 0) this.getUsers();
+    if (!this.memberService.paginatedResult()) this.getUsers();
   }
 
   getUsers() {
-    this.memberService.getAllUsers();
+    this.memberService.getAllUsers(this.pageNumber, this.pageSize);
   }
 }
