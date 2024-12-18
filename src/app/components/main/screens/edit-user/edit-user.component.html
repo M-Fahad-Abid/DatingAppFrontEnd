@@ -33,12 +33,12 @@
 
             <div>
               <strong>Last Active:</strong>
-              <p>{{ user.lastActive }}</p>
+              <p>{{ user.lastActive | timeago }}</p>
             </div>
 
             <div>
               <strong>Member Since:</strong>
-              <p>{{ user.created }}</p>
+              <p>{{ user.created | date : "longDate" }}</p>
             </div>
           </div>
           <div class="card-footer">
@@ -108,7 +108,10 @@
           <tab heading="Edit Photos">
             <div class="tabs-data mt-5 mx-5">
               <h4 class="mb-5">Edit Your Photos</h4>
-              <app-photo-editor [members]="user" (memberChange)="onMemberChange($event)"></app-photo-editor>
+              <app-photo-editor
+                [members]="user"
+                (memberChange)="onMemberChange($event)"
+              ></app-photo-editor>
             </div>
           </tab>
         </tabset>

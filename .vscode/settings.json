@@ -3,6 +3,7 @@
         "bootswatch",
         "getuser",
         "popperjs",
-        "tabset"
+        "tabset",
+        "Timeago"
     ]
 }
