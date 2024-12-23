@@ -4,6 +4,7 @@
         "getuser",
         "popperjs",
         "tabset",
-        "Timeago"
+        "Timeago",
+        "toastr"
     ]
 }

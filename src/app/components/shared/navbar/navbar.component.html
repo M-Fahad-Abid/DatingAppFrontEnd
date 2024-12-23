@@ -11,8 +11,8 @@
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/user" routerLinkActive="active"
-            >List</a
+          <a class="nav-link" routerLink="/likes" routerLinkActive="active"
+            >Likes</a
           >
         </li>
         <li class="nav-item">
@@ -27,7 +27,6 @@
           src="{{ service.signal()?.photoUrl || './assets/user.png' }}"
           alt=""
           class="me-3"
-          
         />
 
         <button
@@ -40,7 +39,7 @@
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
           <li>
-            <button class="dropdown-item" routerLink="user/edit">
+            <button class="dropdown-item" routerLink="/user/update-user-data">
               Settings
             </button>
           </li>

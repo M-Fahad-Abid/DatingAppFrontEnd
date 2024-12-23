@@ -48,6 +48,7 @@ export class EditUserComponent implements OnInit {
     console.log('loading of parent edit component');
 
     this.loadUserDetails();
+    console.log('after load details method');
   }
 
   loadUserDetails() {

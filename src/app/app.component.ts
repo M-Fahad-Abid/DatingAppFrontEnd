@@ -17,15 +17,15 @@ export class AppComponent implements OnInit {
   private accountService = inject(AccountService);
 
   ngOnInit(): void {
-    this.geUserCredentials();
+    this.getUserCredentials();
   }
 
-  geUserCredentials() {
+  getUserCredentials() {
     const userToken = localStorage.getItem('userCreds');
     if (!userToken) {
       return;
     }
     const user = JSON.parse(userToken);
-    this.accountService.signal.set(user);
+    this.accountService.setCurrentUser(user);
   }
 }

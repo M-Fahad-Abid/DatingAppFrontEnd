@@ -13,6 +13,7 @@ import { UsersComponent } from './components/main/screens/users/users.component'
 import { HomeComponent } from './components/main/home/home.component';
 import { EditUserComponent } from './components/main/screens/edit-user/edit-user.component';
 import { preventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
+import { LikesListComponent } from './components/main/screens/likes-list/likes-list.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,13 +26,14 @@ export const routes: Routes = [
     children: [
       { path: 'user', component: UsersComponent },
       {
-        path: 'user/edit',
+        path: 'user/update-user-data',
         component: EditUserComponent,
         canDeactivate: [preventUnsavedChangesGuard],
       },
       { path: 'user/:username', component: UserDetailComponent },
       { path: 'messages', component: MessagesComponent },
       { path: 'matches', component: MatchesComponent },
+      { path: 'likes', component: LikesListComponent },
     ],
   },
 
