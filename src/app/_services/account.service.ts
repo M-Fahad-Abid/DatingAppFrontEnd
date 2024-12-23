@@ -6,6 +6,7 @@ import { Login } from '../models/account/login';
 import { HttpClient } from '@angular/common/http';
 import { Register } from '../models/account/register';
 import { Router } from '@angular/router';
+import { LikesService } from './likes.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ export class AccountService {
   private http = inject(HttpClient);
   private baseUrl = environment.urlHttps;
   private router = inject(Router);
+  private likeService = inject(LikesService);
 
   signal = signal<User | null>(null);
 
@@ -42,6 +44,7 @@ export class AccountService {
   setCurrentUser(user: User) {
     localStorage.setItem('userCreds', JSON.stringify(user));
     this.signal.set(user);
+    this.likeService.getLikesIds();
   }
 
   logout() {
