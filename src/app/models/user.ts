@@ -1,6 +1,6 @@
 export interface User {
-  userName: string;
-  token: string;
-  gender: string;
-  photoUrl?: string;
+    userName: string;
+    token: string;
+    gender: string;
+    photoUrl?: string;
 }

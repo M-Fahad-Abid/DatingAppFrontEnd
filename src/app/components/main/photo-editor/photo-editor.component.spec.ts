@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { PhotoEditorComponent } from './photo-editor.component';
+import { PhotoEditorComponent } from "./photo-editor.component";
 
-describe('PhotoEditorComponent', () => {
-  let component: PhotoEditorComponent;
-  let fixture: ComponentFixture<PhotoEditorComponent>;
+describe("PhotoEditorComponent", () => {
+    let component: PhotoEditorComponent;
+    let fixture: ComponentFixture<PhotoEditorComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [PhotoEditorComponent]
-    })
-    .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [PhotoEditorComponent],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(PhotoEditorComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(PhotoEditorComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it("should create", () => {
+        expect(component).toBeTruthy();
+    });
 });

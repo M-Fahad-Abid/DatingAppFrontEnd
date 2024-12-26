@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { LikesService } from './likes.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AccountService {
   private http = inject(HttpClient);
@@ -30,15 +30,13 @@ export class AccountService {
   }
 
   register(model: Register) {
-    return this.http
-      .post<User>(this.baseUrl + 'account/register-user', model)
-      .pipe(
-        map((user: any) => {
-          if (user) {
-            this.setCurrentUser(user);
-          }
-        })
-      );
+    return this.http.post<User>(this.baseUrl + 'account/register-user', model).pipe(
+      map((user: any) => {
+        if (user) {
+          this.setCurrentUser(user);
+        }
+      })
+    );
   }
 
   setCurrentUser(user: User) {
