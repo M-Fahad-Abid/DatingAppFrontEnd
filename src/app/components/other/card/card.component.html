@@ -21,7 +21,11 @@
 
     <!-- Envelope -->
     <li class="list-inline-item">
-      <button class="btn btn-primary">
+      <button
+        class="btn btn-primary"
+        routerLink="/user/{{ userData.userName }}"
+        [queryParams]="{ tab: 'Messages' }"
+      >
         <i class="bi bi-chat-square-heart-fill"></i>
       </button>
     </li>
