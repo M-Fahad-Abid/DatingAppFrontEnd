@@ -1,5 +1,4 @@
 <section>
-  @if (member) {
   <div class="container mt-5">
     <div class="row">
       <div class="col-lg-4 col-md-4 col-sm-12">
@@ -23,12 +22,12 @@
 
             <div>
               <strong>Last Active:</strong>
-              <p>{{ member.lastActive | timeago}}</p>
+              <p>{{ member.lastActive | timeago }}</p>
             </div>
 
             <div>
               <strong>Member Since:</strong>
-              <p>{{ member.created | date: 'dd MM yyyy' }}</p>
+              <p>{{ member.created | date : "dd MM yyyy" }}</p>
             </div>
           </div>
           <div class="card-footer">
@@ -36,7 +35,7 @@
               <button class="btn btn-primary">
                 <i class="bi bi-hand-thumbs-up-fill me-2"></i>Like
               </button>
-              <button class="btn btn-Success">
+              <button class="btn btn-Success" (click)="selectTab('Messages')">
                 <i class="bi bi-chat-left-dots me-2"></i> Messages
               </button>
             </div>
@@ -44,9 +43,12 @@
         </div>
       </div>
       <div class="col-lg-8 col-md-8 col-sm-12">
-        <tabset class="member-tabset">
+        <tabset class="member-tabset" #memberTabs>
           <!-- First Tab -->
-          <tab heading="About {{ member.knownAS }}">
+          <tab
+            heading="About {{ member.knownAS }}"
+            (selectTab)="onTabActivated($event)"
+          >
             <div class="tabs-data mt-5 mx-5">
               <h4>Description</h4>
               <p>{{ member.introduction }}</p>
@@ -57,7 +59,7 @@
           </tab>
 
           <!-- Second Tab -->
-          <tab heading="Interest">
+          <tab heading="Interest" (selectTab)="onTabActivated($event)">
             <div class="tabs-data mt-5 mx-5">
               <h4>Interest</h4>
               <p>{{ member.interests }}</p>
@@ -65,7 +67,11 @@
           </tab>
 
           <!-- Third Tab -->
-          <tab heading="Photo's" #photoTab="tab">
+          <tab
+            heading="Photo's"
+            #photoTab="tab"
+            (selectTab)="onTabActivated($event)"
+          >
             <div class="tabs-data mt-5 mx-5">
               @if (photoTab.active) {
               <gallery
@@ -78,15 +84,17 @@
           </tab>
 
           <!-- Fourth Tab -->
-          <tab heading="Messages">
+          <tab heading="Messages" (selectTab)="onTabActivated($event)">
             <div class="tabs-data mt-5 mx-5">
-              <h4>Messages</h4>
-              <!-- <p>{{ member.interests }}</p> -->
+              <app-user-messages
+                [username]="member.userName"
+                [messages]="messages"
+                (updateMessages)="onUpdateMessages($event)"
+              ></app-user-messages>
             </div>
           </tab>
         </tabset>
       </div>
     </div>
   </div>
-  }
 </section>

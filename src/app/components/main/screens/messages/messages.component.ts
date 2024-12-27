@@ -21,20 +21,39 @@ import { Message } from '../../../../models/message';
   styleUrl: './messages.component.css',
 })
 export class MessagesComponent implements OnInit {
-  getRoute(_t25: Message) {
-    throw new Error('Method not implemented.');
-  }
-  deleteMessage(arg0: number) {
-    throw new Error('Method not implemented.');
-  }
   messageService = inject(MessageService);
   container = 'Unread';
   pageNumber = 1;
   pageSize = 5;
   isOutbox: any;
+
   ngOnInit(): void {
     this.loadMessages();
   }
+
+  getRoute(message: Message) {
+    if (this.container === 'Outbox') {
+      return `/members/${message.recipientUsername}`;
+    } else return `/members/${message.senderName}`;
+  }
+
+  deleteMessage(msgId: number) {
+    this.messageService.deleteMessage(msgId).subscribe({
+      next: () => {
+        this.messageService.paginatedResult.update((prev) => {
+          if (prev && prev.items) {
+            prev.items.splice(
+              prev.items.findIndex((m) => m.id !== msgId),
+              1
+            );
+            return prev;
+          }
+          return prev;
+        });
+      },
+    });
+  }
+
   loadMessages() {
     this.messageService.getMessages(
       this.pageNumber,
@@ -42,6 +61,7 @@ export class MessagesComponent implements OnInit {
       this.container
     );
   }
+
   pageChange(event: any) {
     if (this.pageNumber !== event.page) {
       this.pageNumber = event.page;
