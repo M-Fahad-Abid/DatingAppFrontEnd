@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { User } from '../models/user';
 import { map } from 'rxjs';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { LikesService } from './likes.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AccountService {
   private http = inject(HttpClient);
@@ -18,6 +18,14 @@ export class AccountService {
   private likeService = inject(LikesService);
 
   signal = signal<User | null>(null);
+
+  roles = computed(() => {
+    const user = this.signal();
+    if (user && user.token) {
+      const role = JSON.parse(atob(user.token.split('.')[1])).role;
+      return Array.isArray(role) ? role : [role];
+    } else return [null];
+  });
 
   login(model: any) {
     return this.http.post<Login>(this.baseUrl + 'account/login', model).pipe(
@@ -30,13 +38,15 @@ export class AccountService {
   }
 
   register(model: Register) {
-    return this.http.post<User>(this.baseUrl + 'account/register-user', model).pipe(
-      map((user: any) => {
-        if (user) {
-          this.setCurrentUser(user);
-        }
-      })
-    );
+    return this.http
+      .post<User>(this.baseUrl + 'account/register-user', model)
+      .pipe(
+        map((user: any) => {
+          if (user) {
+            this.setCurrentUser(user);
+          }
+        })
+      );
   }
 
   setCurrentUser(user: User) {
