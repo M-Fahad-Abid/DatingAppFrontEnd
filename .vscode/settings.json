@@ -1,3 +1,11 @@
 {
-    "cSpell.words": ["bootswatch", "getuser", "popperjs", "tabset", "Timeago", "toastr"]
+  "cSpell.words": [
+    "bootswatch",
+    "Creds",
+    "getuser",
+    "popperjs",
+    "tabset",
+    "Timeago",
+    "toastr"
+  ]
 }

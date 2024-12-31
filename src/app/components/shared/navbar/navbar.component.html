@@ -15,9 +15,16 @@
             >Likes</a
           >
         </li>
+
         <li class="nav-item">
           <a class="nav-link" routerLink="/messages" routerLinkActive="active"
             >Messages</a
+          >
+        </li>
+
+        <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
+          <a class="nav-link" routerLink="/admin" routerLinkActive="active"
+            >Admin</a
           >
         </li>
       </ul>
@@ -35,7 +42,7 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Welcome {{ this.service.signal()?.userName }}
+          Welcome {{ this.service.signal()?.username }}
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
           <li>

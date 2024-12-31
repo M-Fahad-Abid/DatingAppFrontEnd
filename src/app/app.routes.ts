@@ -15,6 +15,8 @@ import { EditUserComponent } from './components/main/screens/edit-user/edit-user
 import { preventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { LikesListComponent } from './components/main/screens/likes-list/likes-list.component';
 import { userDetailsResolver } from './_resolvers/user-details.resolver';
+import { AdminPanelComponent } from './components/main/admin/admin-panel/admin-panel.component';
+import { adminGuard } from './_guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +27,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     runGuardsAndResolvers: 'always',
     children: [
+      // app
       { path: 'user', component: UsersComponent },
       {
         path: 'user/update-user-data',
@@ -39,6 +42,13 @@ export const routes: Routes = [
       { path: 'messages', component: MessagesComponent },
       { path: 'matches', component: MatchesComponent },
       { path: 'likes', component: LikesListComponent },
+
+      // admin
+      {
+        path: 'admin',
+        component: AdminPanelComponent,
+        canActivate: [adminGuard],
+      },
     ],
   },
 
