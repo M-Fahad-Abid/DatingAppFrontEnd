@@ -39,7 +39,7 @@ export class UserManagementComponent implements OnInit {
       initialState: {
         title: 'Edit Roles',
         availableRoles: ['Admin', 'Moderator', 'Member'],
-        username: user.username,
+        username: user.userName,
         selectedRoles: [...user.roles],
         user: this.users,
         rolesUpdated: false,
@@ -51,7 +51,7 @@ export class UserManagementComponent implements OnInit {
         if (this.bsModalRef.content && this.bsModalRef.content.rolesUpdated) {
           const selectedRoles = this.bsModalRef.content.selectedRoles;
           this.adminService
-            .updateUserRoles(user.username, selectedRoles)
+            .updateUserRoles(user.userName, selectedRoles)
             .subscribe({
               next: (roles) => (user.roles = roles),
             });

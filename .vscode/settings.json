@@ -4,6 +4,7 @@
     "Creds",
     "getuser",
     "popperjs",
+    "signalr",
     "tabset",
     "Timeago",
     "toastr"

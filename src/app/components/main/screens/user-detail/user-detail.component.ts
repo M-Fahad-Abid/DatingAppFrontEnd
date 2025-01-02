@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, ViewChild, viewChild } from '@angular/core';
-import { MembersService } from '../../../../_services/members.service';
 import { ActivatedRoute } from '@angular/router';
 import { Member } from '../../../../models/member';
 import { TabDirective, TabsetComponent, TabsModule } from 'ngx-bootstrap/tabs';
@@ -9,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { UserMessagesComponent } from '../user-messages/user-messages.component';
 import { Message } from '../../../../models/message';
 import { MessageService } from '../../../../_services/message.service';
+import { PresenceService } from '../../../../_services/presence.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -24,7 +24,7 @@ import { MessageService } from '../../../../_services/message.service';
   styleUrl: './user-detail.component.css',
 })
 export class UserDetailComponent implements OnInit {
-  private memberService = inject(MembersService);
+  presenceService = inject(PresenceService);
   private route = inject(ActivatedRoute);
   private messageService = inject(MessageService);
 

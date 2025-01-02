@@ -55,7 +55,7 @@ export class EditUserComponent implements OnInit {
     const user = this.accountService.signal();
 
     if (!user) return;
-    this.memberService.getuserByName(user.username).subscribe({
+    this.memberService.getuserByName(user.userName).subscribe({
       next: (response) => {
         this.user = response;
       },
