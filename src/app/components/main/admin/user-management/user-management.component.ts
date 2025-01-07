@@ -21,6 +21,11 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserWithRoles();
+    // console.log('this is admin panel', this.users);
+  }
+
+  trackById(index: number, item: any): any {
+    return item.id;
   }
 
   getUserWithRoles() {
@@ -39,7 +44,7 @@ export class UserManagementComponent implements OnInit {
       initialState: {
         title: 'Edit Roles',
         availableRoles: ['Admin', 'Moderator', 'Member'],
-        username: user.userName,
+        username: user.username,
         selectedRoles: [...user.roles],
         user: this.users,
         rolesUpdated: false,
@@ -51,7 +56,7 @@ export class UserManagementComponent implements OnInit {
         if (this.bsModalRef.content && this.bsModalRef.content.rolesUpdated) {
           const selectedRoles = this.bsModalRef.content.selectedRoles;
           this.adminService
-            .updateUserRoles(user.userName, selectedRoles)
+            .updateUserRoles(user.username, selectedRoles)
             .subscribe({
               next: (roles) => (user.roles = roles),
             });

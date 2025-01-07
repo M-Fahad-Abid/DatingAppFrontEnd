@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   getUserCredentials() {
     const userToken = localStorage.getItem('userCreds');
 
-    console.log('checking for user token in app.comp', userToken);
+    // console.log('checking for user token in app.comp', userToken);
 
     if (!userToken) {
       return;

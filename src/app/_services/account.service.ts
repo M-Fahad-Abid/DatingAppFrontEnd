@@ -53,7 +53,7 @@ export class AccountService {
 
   setCurrentUser(user: User) {
     // debugger;
-    console.log('test', user);
+    // console.log('test', user);
 
     localStorage.setItem('userCreds', JSON.stringify(user));
     this.signal.set(user);

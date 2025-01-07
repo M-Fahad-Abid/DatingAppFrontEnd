@@ -1,5 +1,12 @@
-import { Component, inject, OnInit, ViewChild, viewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  viewChild,
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Member } from '../../../../models/member';
 import { TabDirective, TabsetComponent, TabsModule } from 'ngx-bootstrap/tabs';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
@@ -9,6 +16,8 @@ import { UserMessagesComponent } from '../user-messages/user-messages.component'
 import { Message } from '../../../../models/message';
 import { MessageService } from '../../../../_services/message.service';
 import { PresenceService } from '../../../../_services/presence.service';
+import { AccountService } from '../../../../_services/account.service';
+import { HubConnectionState } from '@microsoft/signalr';
 
 @Component({
   selector: 'app-user-detail',
@@ -23,10 +32,12 @@ import { PresenceService } from '../../../../_services/presence.service';
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.css',
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent implements OnInit, OnDestroy {
   presenceService = inject(PresenceService);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private messageService = inject(MessageService);
+  private accountService = inject(AccountService);
 
   @ViewChild('memberTabs', { static: true }) memberTabs?: TabsetComponent;
   images: GalleryItem[] = [];
@@ -34,7 +45,6 @@ export class UserDetailComponent implements OnInit {
   //   whats this?
   member: Member = {} as Member;
   activeTab?: TabDirective;
-  messages: Message[] = [];
 
   ngOnInit(): void {
     this.route.data.subscribe({
@@ -47,6 +57,10 @@ export class UserDetailComponent implements OnInit {
       },
     });
 
+    this.route.paramMap.subscribe({
+      next: (_) => this.onRouteParamsChange(),
+    });
+
     this.route.queryParams.subscribe({
       next: (params) => {
         if (params['tab'] && this.selectTab) {
@@ -56,38 +70,41 @@ export class UserDetailComponent implements OnInit {
     });
   }
 
-  onTabActivated(data: TabDirective) {
-    this.activeTab = data;
+  ngOnDestroy(): void {
+    this.messageService.stopHubConnection();
+  }
+
+  onRouteParamsChange() {
+    const user = this.accountService.signal();
+    if (!user) return;
     if (
-      this.activeTab.heading === 'Messages' &&
-      this.messages.length === 0 &&
-      this.member
+      this.messageService.hubConnection?.state ===
+        HubConnectionState.Connected &&
+      this.activeTab?.heading === 'Messages'
     ) {
-      this.messageService.getMessageThread(this.member.userName).subscribe({
-        next: (response) => {
-          this.messages = response;
-        },
+      this.messageService.hubConnection.stop().then(() => {
+        this.messageService.createHubConnection(user, this.member.userName);
       });
     }
   }
 
-  //   loadMember() {
-  //     const username = this.route.snapshot.paramMap.get('username');
-  //     if (!username) {
-  //       return;
-  //     }
-  //     this.memberService.getuserByName(username).subscribe({
-  //       next: (response) => {
-  //         this.member = response;
-  //         response.photos.map((p) => {
-  //           this.images.push(new ImageItem({ src: p.url, thumb: p.url }));
-  //         });
-  //       },
-  //     });
-  //   }
-
-  onUpdateMessages(event: Message) {
-    this.messages.push(event);
+  onTabActivated(data: TabDirective) {
+    this.activeTab = data;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { tab: this.activeTab.heading },
+      queryParamsHandling: 'merge',
+    });
+    console.log('Tab activated data from user detail comp:', this.activeTab);
+    if (this.activeTab.heading === 'Messages' && this.member) {
+      const user = this.accountService.signal();
+      console.log('User signal data from user detail comp:', user);
+      if (!user) return;
+      this.messageService.createHubConnection(user, this.member.userName);
+    } else {
+      console.log('Stopping hub connection');
+      this.messageService.stopHubConnection();
+    }
   }
 
   selectTab(heading: string) {
