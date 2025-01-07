@@ -21,6 +21,11 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserWithRoles();
+    // console.log('this is admin panel', this.users);
+  }
+
+  trackById(index: number, item: any): any {
+    return item.id;
   }
 
   getUserWithRoles() {

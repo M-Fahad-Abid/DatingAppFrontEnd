@@ -3,7 +3,7 @@
     <a class="navbar-brand" routerLink="/">{{ title }}</a>
 
     <div class="collapse navbar-collapse" id="navbarColor01">
-      @if (service.signal()) {
+      @if (accountService.signal()) {
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" routerLink="/matches" routerLinkActive="active"
@@ -31,7 +31,7 @@
 
       <div class="btn-group">
         <img
-          src="{{ service.signal()?.photoUrl || './assets/user.png' }}"
+          src="{{ accountService.signal()?.photoUrl || './assets/user.png' }}"
           alt=""
           class="me-3"
         />
@@ -42,7 +42,7 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Welcome {{ this.service.signal()?.username }}
+          Welcome {{ accountService.signal()?.userName || "test name" }}
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
           <li>
@@ -58,7 +58,7 @@
         </ul>
       </div>
 
-      } @if (!service.signal()) {
+      } @if (!accountService.signal()) {
       <form #loginForm="ngForm" class="d-flex" (ngSubmit)="login()">
         <input
           class="form-control me-sm-2"

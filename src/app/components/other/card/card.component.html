@@ -34,7 +34,10 @@
   <!-- card body -->
   <div class="card-body">
     <h5 class="card-title text-center">
-      <i class="bi bi-person-fill"></i>
+      <span [class.is-online]="isOnline()">
+        <i class="bi bi-person-fill"></i>
+      </span>
+
       {{ userData.userName }}
       @if (hasLiked()) {
       <i class="bi bi-heart-fill" style="color: red"></i>

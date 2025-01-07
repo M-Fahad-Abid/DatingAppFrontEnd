@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Register } from '../models/account/register';
 import { Router } from '@angular/router';
 import { LikesService } from './likes.service';
+import { PresenceService } from './presence.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ export class AccountService {
   private baseUrl = environment.urlHttps;
   private router = inject(Router);
   private likeService = inject(LikesService);
+  private presenceService = inject(PresenceService);
 
   signal = signal<User | null>(null);
 
@@ -50,14 +52,24 @@ export class AccountService {
   }
 
   setCurrentUser(user: User) {
+    // debugger;
+    // console.log('test', user);
+
     localStorage.setItem('userCreds', JSON.stringify(user));
     this.signal.set(user);
     this.likeService.getLikesIds();
+    this.presenceService.createHubConnection(user);
+  }
+
+  getUserData() {
+    const userCreds = localStorage.getItem('userCreds');
+    return userCreds ? userCreds : 'name bug';
   }
 
   logout() {
     localStorage.removeItem('userCreds');
     this.signal.set(null);
     this.router.navigateByUrl('/');
+    this.presenceService.stopHubConnection();
   }
 }

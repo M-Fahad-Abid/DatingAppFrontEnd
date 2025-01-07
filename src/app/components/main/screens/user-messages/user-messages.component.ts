@@ -20,25 +20,29 @@ import { Input } from 'postcss';
   templateUrl: './user-messages.component.html',
   styleUrl: './user-messages.component.css',
 })
-export class UserMessagesComponent {
+export class UserMessagesComponent implements OnInit {
   messageService = inject(MessageService);
 
   @ViewChild('messageForm') messageForm: any;
   username = input.required<string>();
-  messages = input.required<Message[]>();
+
   messageContent: any;
   loading: any;
-  updateMessages = output<Message>();
+
+  ngOnInit(): void {
+    console.log('checking that user-message component is loaded ');
+  }
 
   sendMessage() {
+    if (!this.messageContent) return;
+
+    this.loading = true;
     this.messageService
       .sendMessages(this.username(), this.messageContent)
-      .subscribe({
-        next: (requestResponse) => {
-          this.updateMessages.emit(requestResponse);
-          this.messageForm?.reset();
-          // this.messageContent = '';
-        },
-      });
+      .then(() => {
+        this.messageForm.reset();
+      })
+      .catch((error) => console.error('Send message error:', error))
+      .finally(() => (this.loading = false));
   }
 }

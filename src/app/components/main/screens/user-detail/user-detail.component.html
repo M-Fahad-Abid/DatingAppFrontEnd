@@ -10,6 +10,12 @@
           />
 
           <div class="card-body">
+            <div class="mb-2">
+              @if (presenceService.onlineUsers().includes(member.userName)) {
+              <i class="bi bi-circle-fill circle"></i> Online now } @else {
+              <i class="bi bi-circle-fill circle-away"></i> Away }
+            </div>
+
             <div>
               <strong> Location:</strong>
               <p>{{ member.city }}, {{ member.country }}</p>
@@ -88,8 +94,6 @@
             <div class="tabs-data mt-5 mx-5">
               <app-user-messages
                 [username]="member.userName"
-                [messages]="messages"
-                (updateMessages)="onUpdateMessages($event)"
               ></app-user-messages>
             </div>
           </tab>

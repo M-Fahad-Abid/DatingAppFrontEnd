@@ -1,19 +1,33 @@
 .card {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .card:hover img {
-    transform: scale(1.2, 1.2);
-    transition-duration: 500ms;
-    transition-timing-function: ease-out;
+  transform: scale(1.2, 1.2);
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
 }
 
 .card img {
-    transform: scale(1, 1);
-    transition-duration: 500ms;
-    transition-timing-function: ease-out;
+  transform: scale(1, 1);
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
 }
 
 .card-img-wrapper {
-    overflow: hidden;
+  overflow: hidden;
+}
+
+@keyframes bi-blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+.is-online {
+  animation: bi-blink 1s linear infinite;
+  color: lime;
 }

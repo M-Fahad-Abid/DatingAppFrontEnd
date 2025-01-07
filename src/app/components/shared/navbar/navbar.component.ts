@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../../../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
@@ -13,20 +13,25 @@ import { HasRoleDirective } from '../../../_directives/has-role.directive';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+  public accountService = inject(AccountService);
+  private toastr = inject(ToastrService);
+
   model: any = {};
+
+  username?: string;
 
   title: string = 'DateApp';
 
   responseMessage: any;
 
-  public service = inject(AccountService);
-  private toastr = inject(ToastrService);
+  ngOnInit(): void {
+    this.username = this.accountService.getUserData();
+    // console.log('Is there username', this.username);
+  }
 
   login() {
-    console.log(this.model);
-
-    this.service.login(this.model).subscribe({
+    this.accountService.login(this.model).subscribe({
       next: (response) => {
         this.responseMessage = response;
         this.toastr.success('Hello', 'Login Success');
@@ -36,6 +41,6 @@ export class NavbarComponent {
   }
 
   logout() {
-    this.service.logout();
+    this.accountService.logout();
   }
 }
