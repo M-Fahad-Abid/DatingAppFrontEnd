@@ -33,8 +33,8 @@ export class MessagesComponent implements OnInit {
 
   getRoute(message: Message) {
     if (this.container === 'Outbox') {
-      return `/members/${message.recipientUsername}`;
-    } else return `/members/${message.senderName}`;
+      return `/user/${message.recipientUsername}`;
+    } else return `/user/${message.senderName}`;
   }
 
   deleteMessage(msgId: number) {

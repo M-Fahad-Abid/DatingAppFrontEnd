@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
+import { ResponseUser } from '../models/response-user';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class AdminService {
   private http = inject(HttpClient);
 
   getUsersWithRoles() {
-    return this.http.get<User[]>(this.baseUrl + 'user-with-roles');
+    return this.http.get<ResponseUser[]>(this.baseUrl + 'user-with-roles');
   }
 
   updateUserRoles(username: string, roles: string[]) {

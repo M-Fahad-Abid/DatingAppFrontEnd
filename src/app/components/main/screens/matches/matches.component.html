@@ -1,1 +1,15 @@
-<p>matches works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12 mx-auto mt-5 text-center">
+      <h1>Your Matches</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    @for (user of userMatches; track user.id) {
+    <div class="col-lg-2 col-sm-6 mt-4">
+      <app-card [userData]="user"></app-card>
+    </div>
+    }
+  </div>
+</div>

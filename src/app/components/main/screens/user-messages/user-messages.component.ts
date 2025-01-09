@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   Component,
   inject,
   input,
@@ -20,10 +21,11 @@ import { Input } from 'postcss';
   templateUrl: './user-messages.component.html',
   styleUrl: './user-messages.component.css',
 })
-export class UserMessagesComponent implements OnInit {
+export class UserMessagesComponent implements OnInit, AfterViewChecked {
   messageService = inject(MessageService);
 
-  @ViewChild('messageForm') messageForm: any;
+  @ViewChild('messageForm') messageForm?: any;
+  @ViewChild('scrollMe') scrollContainer?: any;
   username = input.required<string>();
 
   messageContent: any;
@@ -33,6 +35,9 @@ export class UserMessagesComponent implements OnInit {
     console.log('checking that user-message component is loaded ');
   }
 
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
+  }
   sendMessage() {
     if (!this.messageContent) return;
 
@@ -41,8 +46,14 @@ export class UserMessagesComponent implements OnInit {
       .sendMessages(this.username(), this.messageContent)
       .then(() => {
         this.messageForm.reset();
+        this.scrollToBottom();
       })
       .catch((error) => console.error('Send message error:', error))
       .finally(() => (this.loading = false));
+  }
+
+  private scrollToBottom() {
+    this.scrollContainer.nativeElement.scrollTop =
+      this.scrollContainer.nativeElement.scrollHeight;
   }
 }

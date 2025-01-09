@@ -4,6 +4,8 @@ import { User } from '../../../../models/user';
 import { CommonModule } from '@angular/common';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { RolesModalComponent } from '../../../shared/modals/roles-modal/roles-modal.component';
+import { AdminData } from '../../../../models/admin-data';
+import { ResponseUser } from '../../../../models/response-user';
 
 @Component({
   selector: 'app-user-management',
@@ -30,9 +32,15 @@ export class UserManagementComponent implements OnInit {
 
   getUserWithRoles() {
     this.adminService.getUsersWithRoles().subscribe({
-      next: (response) => {
-        this.users = response;
-        // console.log('le response from request', this.users);
+      next: (response: ResponseUser[]) => {
+        this.users = response.map((user) => ({
+          userName: user.username,
+          roles: user.roles,
+          token: '',
+          gender: '',
+          photoUrl: user.photoUrl || '',
+        }));
+        console.log('le response from request', this.users);
       },
       error: (err) => console.log('checking for errors', err),
     });
@@ -44,7 +52,7 @@ export class UserManagementComponent implements OnInit {
       initialState: {
         title: 'Edit Roles',
         availableRoles: ['Admin', 'Moderator', 'Member'],
-        username: user.username,
+        username: user.userName,
         selectedRoles: [...user.roles],
         user: this.users,
         rolesUpdated: false,
@@ -56,7 +64,7 @@ export class UserManagementComponent implements OnInit {
         if (this.bsModalRef.content && this.bsModalRef.content.rolesUpdated) {
           const selectedRoles = this.bsModalRef.content.selectedRoles;
           this.adminService
-            .updateUserRoles(user.username, selectedRoles)
+            .updateUserRoles(user.userName, selectedRoles)
             .subscribe({
               next: (roles) => (user.roles = roles),
             });

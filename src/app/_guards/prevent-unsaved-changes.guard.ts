@@ -1,9 +1,15 @@
-import { CanDeactivateFn } from "@angular/router";
-import { EditUserComponent } from "../components/main/screens/edit-user/edit-user.component";
+import { CanDeactivateFn } from '@angular/router';
+import { EditUserComponent } from '../components/main/screens/edit-user/edit-user.component';
+import { inject } from '@angular/core';
+import { ConfirmService } from '../_services/confirm.service';
 
-export const preventUnsavedChangesGuard: CanDeactivateFn<EditUserComponent> = (component) => {
-    if (component.editForm?.dirty) {
-        return confirm("Are you sure you want to continue, Any UnSaved Changes Would be lost! ");
-    }
-    return true;
+export const preventUnsavedChangesGuard: CanDeactivateFn<EditUserComponent> = (
+  component
+) => {
+  const confirmService = inject(ConfirmService);
+
+  if (component.editForm?.dirty) {
+    return confirmService.confirm() ?? false;
+  }
+  return true;
 };
